@@ -2,7 +2,10 @@ const cors = require('cors');
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000; // Cambia al puerto que desees
+const clientsRoutes = require('../src/routes/clientes.js');
+
 app.use(cors());
+app.use('/api', clientsRoutes);
 
 // Configuración avanzada para controlar qué orígenes, métodos y headers se permiten
 const corsOptions = {
