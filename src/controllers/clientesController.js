@@ -15,10 +15,10 @@ exports.getAllClients = (req, res) => {
   });
 };
 
-// Obtener un cliente por ID
+// Obtener un cliente por id_cliente
 exports.getClientById = (req, res) => {
-  const { id } = req.params;
-  db.query('SELECT * FROM clientes WHERE id = ?', [id], (err, results) => {
+  const { id_cliente } = req.params;
+  db.query('SELECT * FROM clientes WHERE id_cliente = ?', [id_cliente], (err, results) => {
     if (err) {
       console.error('Error al obtener el cliente:', err);
       return res.status(500).json({ error: 'Error al obtener el cliente' });
@@ -32,29 +32,29 @@ exports.getClientById = (req, res) => {
 
 // Crear un nuevo cliente
 exports.createClient = (req, res) => {
-  const { nombre, rut, direccion, comuna, region, apellido, correo, numero } = req.body;
+  const { nombre, rut, direccion, comuna, region, apellido, correo, numero_cliente } = req.body;
 
   db.query(
-    'INSERT INTO clientes (nombre, rut, direccion, comuna, region, apellido, correo, numero) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-    [nombre, rut, direccion, comuna, region, apellido, correo, numero],
+    'INSERT INTO clientes (nombre, rut, direccion, comuna, region, apellido, correo, numero_cliente) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    [nombre, rut, direccion, comuna, region, apellido, correo, numero_cliente],
     (err, result) => {
       if (err) {
         console.error('Error al crear el cliente:', err);
         return res.status(500).json({ error: 'Error al crear el cliente' });
       }
-      res.status(201).json({ message: 'Cliente creado exitosamente', id: result.insertId });
+      res.status(201).json({ message: 'Cliente creado exitosamente', id_cliente: result.insertId });
     }
   );
 };
 
 // Actualizar un cliente
 exports.updateClient = (req, res) => {
-  const { id } = req.params;
-  const { nombre, rut, direccion, comuna, region, apellido, correo, numero } = req.body;
+  const { id_cliente } = req.params;
+  const { nombre, rut, direccion, comuna, region, apellido, correo, numero_cliente } = req.body;
 
   db.query(
-    'UPDATE clientes SET nombre = ?, rut = ?, direccion = ?, comuna = ?, region = ?, apellido = ?, correo = ?, numero = ? WHERE id = ?',
-    [nombre, rut, direccion, comuna, region, apellido, correo, numero, id],
+    'UPDATE clientes SET nombre = ?, rut = ?, direccion = ?, comuna = ?, region = ?, apellido = ?, correo = ?, numero_cliente = ? WHERE id_cliente = ?',
+    [nombre, rut, direccion, comuna, region, apellido, correo, numero_cliente, id_cliente],
     (err, result) => {
       if (err) {
         console.error('Error al actualizar el cliente:', err);
@@ -70,8 +70,8 @@ exports.updateClient = (req, res) => {
 
 // Eliminar un cliente
 exports.deleteClient = (req, res) => {
-  const { id } = req.params;
-  db.query('DELETE FROM clientes WHERE id = ?', [id], (err, result) => {
+  const { id_cliente } = req.params;
+  db.query('DELETE FROM clientes WHERE id_cliente = ?', [id_cliente], (err, result) => {
     if (err) {
       console.error('Error al eliminar el cliente:', err);
       return res.status(500).json({ error: 'Error al eliminar el cliente' });
