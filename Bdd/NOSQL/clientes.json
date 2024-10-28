@@ -1,0 +1,202 @@
+[
+    {
+        "id_cliente": 1,
+        "nombre": "Juan",
+        "direccion": "Calle 1 #123",
+        "comuna": "Santiago",
+        "region": "Metropolitana",
+        "apellido": "Pérez",
+        "correo": "juan.perez@example.com",
+        "numero_cliente": 987654321
+    },
+    {
+        "id_cliente": 2,
+        "nombre": "María",
+        "direccion": "Calle 2 #456",
+        "comuna": "Providencia",
+        "region": "Metropolitana",
+        "apellido": "González",
+        "correo": "maria.gonzalez@example.com",
+        "numero_cliente": 987123456
+    },
+    {
+        "id_cliente": 3,
+        "nombre": "Pedro",
+        "direccion": "Calle 3 #789",
+        "comuna": "Viña del Mar",
+        "region": "Valparaíso",
+        "apellido": "Ramírez",
+        "correo": "pedro.ramirez@example.com",
+        "numero_cliente": 987111222
+    },
+    {
+        "id_cliente": 4,
+        "nombre": "Ana",
+        "direccion": "Avenida Siempreviva #123",
+        "comuna": "Quilpué",
+        "region": "Valparaíso",
+        "apellido": "Fernández",
+        "correo": "ana.fernandez@example.com",
+        "numero_cliente": 987333444
+    },
+    {
+        "id_cliente": 5,
+        "nombre": "Carlos",
+        "direccion": "Calle 4 #101",
+        "comuna": "Rancagua",
+        "region": "O'Higgins",
+        "apellido": "Sánchez",
+        "correo": "carlos.sanchez@example.com",
+        "numero_cliente": 987555666
+    },
+    {
+        "id_cliente": 6,
+        "nombre": "Camila",
+        "direccion": "Pasaje A #202",
+        "comuna": "Antofagasta",
+        "region": "Antofagasta",
+        "apellido": "Muñoz",
+        "correo": "camila.munoz@example.com",
+        "numero_cliente": 987777888
+    },
+    {
+        "id_cliente": 7,
+        "nombre": "Diego",
+        "direccion": "Calle B #303",
+        "comuna": "La Serena",
+        "region": "Coquimbo",
+        "apellido": "Torres",
+        "correo": "diego.torres@example.com",
+        "numero_cliente": 987999000
+    },
+    {
+        "id_cliente": 8,
+        "nombre": "Paula",
+        "direccion": "Avenida B #404",
+        "comuna": "Temuco",
+        "region": "Araucanía",
+        "apellido": "Morales",
+        "correo": "paula.morales@example.com",
+        "numero_cliente": 987112233
+    },
+    {
+        "id_cliente": 9,
+        "nombre": "Andrés",
+        "direccion": "Pasaje C #505",
+        "comuna": "Concepción",
+        "region": "Bío Bío",
+        "apellido": "Reyes",
+        "correo": "andres.reyes@example.com",
+        "numero_cliente": 987223344
+    },
+    {
+        "id_cliente": 10,
+        "nombre": "Sofía",
+        "direccion": "Calle D #606",
+        "comuna": "Puerto Montt",
+        "region": "Los Lagos",
+        "apellido": "Vera",
+        "correo": "sofia.vera@example.com",
+        "numero_cliente": 987334455
+    },
+    {
+        "id_cliente": 1,
+        "nombre": "Juan",
+        "direccion": "Calle 1 #123",
+        "comuna": "Santiago",
+        "region": "Metropolitana",
+        "apellido": "Pérez",
+        "correo": "juan.perez@example.com",
+        "numero_cliente": 987654321
+    },
+    {
+        "id_cliente": 2,
+        "nombre": "María",
+        "direccion": "Calle 2 #456",
+        "comuna": "Providencia",
+        "region": "Metropolitana",
+        "apellido": "González",
+        "correo": "maria.gonzalez@example.com",
+        "numero_cliente": 987123456
+    },
+    {
+        "id_cliente": 3,
+        "nombre": "Pedro",
+        "direccion": "Calle 3 #789",
+        "comuna": "Viña del Mar",
+        "region": "Valparaíso",
+        "apellido": "Ramírez",
+        "correo": "pedro.ramirez@example.com",
+        "numero_cliente": 987111222
+    },
+    {
+        "id_cliente": 4,
+        "nombre": "Ana",
+        "direccion": "Avenida Siempreviva #123",
+        "comuna": "Quilpué",
+        "region": "Valparaíso",
+        "apellido": "Fernández",
+        "correo": "ana.fernandez@example.com",
+        "numero_cliente": 987333444
+    },
+    {
+        "id_cliente": 5,
+        "nombre": "Carlos",
+        "direccion": "Calle 4 #101",
+        "comuna": "Rancagua",
+        "region": "O'Higgins",
+        "apellido": "Sánchez",
+        "correo": "carlos.sanchez@example.com",
+        "numero_cliente": 987555666
+    },
+    {
+        "id_cliente": 6,
+        "nombre": "Camila",
+        "direccion": "Pasaje A #202",
+        "comuna": "Antofagasta",
+        "region": "Antofagasta",
+        "apellido": "Muñoz",
+        "correo": "camila.munoz@example.com",
+        "numero_cliente": 987777888
+    },
+    {
+        "id_cliente": 7,
+        "nombre": "Diego",
+        "direccion": "Calle B #303",
+        "comuna": "La Serena",
+        "region": "Coquimbo",
+        "apellido": "Torres",
+        "correo": "diego.torres@example.com",
+        "numero_cliente": 987999000
+    },
+    {
+        "id_cliente": 8,
+        "nombre": "Paula",
+        "direccion": "Avenida B #404",
+        "comuna": "Temuco",
+        "region": "Araucanía",
+        "apellido": "Morales",
+        "correo": "paula.morales@example.com",
+        "numero_cliente": 987112233
+    },
+    {
+        "id_cliente": 9,
+        "nombre": "Andrés",
+        "direccion": "Pasaje C #505",
+        "comuna": "Concepción",
+        "region": "Bío Bío",
+        "apellido": "Reyes",
+        "correo": "andres.reyes@example.com",
+        "numero_cliente": 987223344
+    },
+    {
+        "id_cliente": 10,
+        "nombre": "Sofía",
+        "direccion": "Calle D #606",
+        "comuna": "Puerto Montt",
+        "region": "Los Lagos",
+        "apellido": "Vera",
+        "correo": "sofia.vera@example.com",
+        "numero_cliente": 987334455
+    }
+]
