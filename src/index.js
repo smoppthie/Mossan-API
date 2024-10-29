@@ -1,31 +1,28 @@
 const cors = require('cors');
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3000; // Cambia al puerto que desees
+const port = process.env.PORT || 4000; // Cambia al puerto que desees
 const clientsRoutes = require('../src/routes/clientes.js');
+const productsRoutes = require('./routes/products');
 
-app.use(cors());
-app.use('/api', clientsRoutes);
-
-// Configuración avanzada para controlar qué orígenes, métodos y headers se permiten
+// Configuración avanzada de CORS
 const corsOptions = {
-  origin: 'http://example.com/', // Reemplaza con el origen permitido
+  origin: 'http://localhost:3000', // Cambia al origen de tu frontend
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
   allowedHeaders: ['Content-Type', 'Authorization'], // Headers permitidos
 };
 
+// Aplicar CORS con opciones configuradas
 app.use(cors(corsOptions));
 
-// Tu configuración de rutas
-app.get('/', (req, res) => {
-  res.send('CORS configurado correctamente');
-});
+// Middleware para procesar JSON
+app.use(express.json());
 
-app.listen(4000, () => {
-  console.log('Servidor corriendo en el puerto 4000');
-});
+// Rutas de la API
+app.use('/api', clientsRoutes);
+app.use('/api', productsRoutes);
 
-// Ruta de ejemplo
+// Ruta principal
 app.get('/', (req, res) => {
   res.send('¡Bienvenido a la tienda de muebles Mossan!');
 });
@@ -42,11 +39,3 @@ server.on('error', (err) => {
     console.error(err);
   }
 });
-
-// Middleware para procesar JSON
-app.use(express.json());
-
-// Importar y utilizar las rutas
-const productsRoutes = require('./routes/products');
-app.use('/api', productsRoutes);
-
