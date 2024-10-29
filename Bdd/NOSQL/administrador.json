@@ -1,0 +1,16 @@
+[
+    {
+        "nombre": "Daniel",
+        "apellido": "Belozo",
+        "rut": 201234567,
+        "numero_telefonico": 959234567,
+        "correo": "daniel.b@gmail.com"
+    },
+    {
+        "nombre": "Yoselin",
+        "apellido": "Cornejo",
+        "rut": 210639624,
+        "numero_telefonico": 953114596,
+        "correo": "yoselin.cr@gmail.com"
+    }
+]
