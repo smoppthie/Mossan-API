@@ -1,14 +1,24 @@
+// routes/products.js
 const express = require('express');
 const router = express.Router();
-const db = require('../bd');
 const productsController = require('../controllers/productsController');
 
+// Pasar la conexión a la base de datos al controlador
+module.exports = (db) => {
+  // Obtener todos los productos
+  router.get('/productos', productsController(db).getAllProducts);
 
-// Rutas para los productos
-router.get('/products', productsController.getAllProducts); // Obtener todos los productos
-router.get('/products/:id_producto', productsController.getProductById); // Obtener un producto por ID
-router.post('/products', productsController.createProduct); // Crear un nuevo producto
-router.put('/products/:id_producto', productsController.updateProduct); // Actualizar un producto existente
-router.delete('/products/:id_producto', productsController.deleteProduct); // Eliminar un producto
+  // Obtener un producto por id_producto
+  router.get('/productos/:id_producto', productsController(db).getProductById); // Aquí usamos id_producto
 
-module.exports = router;
+  // Crear un nuevo producto
+  router.post('/productos', productsController(db).createProduct);
+
+  // Actualizar un producto
+  router.put('/productos/:id_producto', productsController(db).updateProduct);
+
+  // Eliminar un producto
+  router.delete('/productos/:id_producto', productsController(db).deleteProduct);
+
+  return router;
+};
