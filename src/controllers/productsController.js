@@ -4,13 +4,19 @@ const { ObjectId } = require('mongodb');
 module.exports = (db) => {
   return {
     // Obtener todos los productos
+   // En productsController.js
+
     getAllProducts: async (req, res) => {
+      const sortOption = req.query.sort === 'asc' ? 1 : -1; // ascendente o descendente
       try {
-        const products = await db.collection('productos').find({}).toArray();
+        const products = await db.collection('productos')
+          .find({})
+          .sort({ precio: sortOption }) // Ordenar por precio
+          .toArray();
         res.json(products);
       } catch (err) {
-        console.error('Error al obtener los productos:', err);
-        res.status(500).send('Error al obtener los productos');
+        console.error('Error al obtener productos:', err);
+        res.status(500).send('Error al obtener productos');
       }
     },
 
