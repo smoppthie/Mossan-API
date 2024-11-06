@@ -1,23 +1,23 @@
-// routes/administradores.js
+// routes/administrador.js
 const express = require('express');
 const router = express.Router();
-const administradoresController = require('../controllers/administradoresController');
+const administradorController = require('../controllers/administradorController');
 
 module.exports = (db) => {
   // Obtener todos los administradores
-  router.get('/administradores', administradoresController(db).getAllAdministrators);
+  router.get('/administrador', administradorController(db).getAllAdministrators);
 
-  // Obtener un administrador por ID
-  router.get('/administradores/:id_administrador', administradoresController(db).getAdministratorById);
+  // Obtener un administrador por rut
+  router.get('/administrador/:rut', administradorController(db).getAdministratorByRut);
 
   // Crear un nuevo administrador
-  router.post('/administradores', administradoresController(db).createAdministrator);
+  router.post('/administrador', administradorController(db).createAdministrator);
 
-  // Actualizar un administrador
-  router.put('/administradores/:id_administrador', administradoresController(db).updateAdministrator);
+  // Actualizar un administrador por rut
+  router.put('/administrador/:rut', administradorController(db).updateAdministrator);
 
-  // Eliminar un administrador
-  router.delete('/administradores/:id_administrador', administradoresController(db).deleteAdministrator);
+  // Eliminar un administrador por rut
+  router.delete('/administrador/:rut', administradorController(db).deleteAdministrator);
 
   return router;
 };

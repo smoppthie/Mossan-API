@@ -1,4 +1,3 @@
-// controllers/administradoresController.js
 const { ObjectId } = require('mongodb'); 
 
 module.exports = (db) => {
@@ -6,7 +5,7 @@ module.exports = (db) => {
     // Obtener todos los administradores
     getAllAdministrators: async (req, res) => {
       try {
-        const administrators = await db.collection('administradores').find({}).toArray();
+        const administrators = await db.collection('administrador').find({}).toArray();
         res.json(administrators);
       } catch (err) {
         console.error('Error al obtener los administradores:', err);
@@ -14,14 +13,17 @@ module.exports = (db) => {
       }
     },
 
-    // Obtener un administrador por ID
-    getAdministratorById: async (req, res) => {
-      const { id_administrador } = req.params;
+    // Obtener un administrador por rut
+    getAdministratorByRut: async (req, res) => {
+      const { rut } = req.params;
       try {
-        const administrator = await db.collection('administradores').findOne({ _id: ObjectId(id_administrador) });
+        // Busca el administrador usando el campo `rut`
+        const administrator = await db.collection('administrador').findOne({ rut: parseInt(rut) });
+        
         if (!administrator) {
           return res.status(404).send('Administrador no encontrado');
         }
+        
         res.json(administrator);
       } catch (err) {
         console.error('Error al obtener el administrador:', err);
@@ -31,9 +33,17 @@ module.exports = (db) => {
 
     // Crear un nuevo administrador
     createAdministrator: async (req, res) => {
-      const newAdministrator = req.body;
+      const { nombre, apellido, rut, numero_telefonico, correo } = req.body;
+      const newAdministrator = {
+        nombre,
+        apellido,
+        rut: parseInt(rut),
+        numero_telefonico: parseInt(numero_telefonico),
+        correo,
+      };
+      
       try {
-        const result = await db.collection('administradores').insertOne(newAdministrator);
+        const result = await db.collection('administrador').insertOne(newAdministrator);
         res.status(201).json({ message: 'Administrador creado exitosamente', administratorId: result.insertedId });
       } catch (err) {
         console.error('Error al crear el administrador:', err);
@@ -41,18 +51,27 @@ module.exports = (db) => {
       }
     },
 
-    // Actualizar un administrador
+    // Actualizar un administrador por su rut
     updateAdministrator: async (req, res) => {
-      const { id_administrador } = req.params;
-      const updateData = req.body;
+      const { rut } = req.params;
+      const { nombre, apellido, numero_telefonico, correo } = req.body;
+      const updateData = {
+        ...(nombre && { nombre }),
+        ...(apellido && { apellido }),
+        ...(numero_telefonico && { numero_telefonico: parseInt(numero_telefonico) }),
+        ...(correo && { correo })
+      };
+      
       try {
-        const result = await db.collection('administradores').updateOne(
-          { _id: ObjectId(id_administrador) },
+        const result = await db.collection('administrador').updateOne(
+          { rut: parseInt(rut) },
           { $set: updateData }
         );
+        
         if (result.matchedCount === 0) {
           return res.status(404).send('Administrador no encontrado');
         }
+        
         res.json({ message: 'Administrador actualizado exitosamente' });
       } catch (err) {
         console.error('Error al actualizar el administrador:', err);
@@ -60,14 +79,16 @@ module.exports = (db) => {
       }
     },
 
-    // Eliminar un administrador
+    // Eliminar un administrador por su rut
     deleteAdministrator: async (req, res) => {
-      const { id_administrador } = req.params;
+      const { rut } = req.params;
       try {
-        const result = await db.collection('administradores').deleteOne({ _id: ObjectId(id_administrador) });
+        const result = await db.collection('administrador').deleteOne({ rut: parseInt(rut) });
+        
         if (result.deletedCount === 0) {
           return res.status(404).send('Administrador no encontrado');
         }
+        
         res.json({ message: 'Administrador eliminado exitosamente' });
       } catch (err) {
         console.error('Error al eliminar el administrador:', err);
