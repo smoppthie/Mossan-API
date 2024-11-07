@@ -1,6 +1,7 @@
 // Importaciones
 const cors = require('cors');
 const express = require('express');
+const path = require('path');
 const { MongoClient } = require('mongodb'); // Importa el cliente de MongoDB
 const app = express();
 const port = process.env.PORT || 4000;
@@ -22,6 +23,12 @@ app.use(cors(corsOptions));
 
 // Middleware para procesar JSON
 app.use(express.json());
+
+// Servir archivos estáticos desde la carpeta 'uploads'
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.get('/uploads/test', (req, res) => {
+  res.send('Ruta de archivos estáticos funciona');
+});
 
 // Conexión a MongoDB
 const url = process.env.MONGODB_URL || 'mongodb://localhost:27017'; // Cambia a tu URL de MongoDB si es necesario
