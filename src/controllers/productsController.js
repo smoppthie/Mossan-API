@@ -22,30 +22,39 @@ module.exports = (db) => {
 
     // Obtener un producto por id_producto
     getProductById: async (req, res) => {
-      const { id_producto } = req.params; // Ahora tomamos id_producto de la URL
+      const { id_producto } = req.params;
       try {
-        const product = await db.collection('productos').findOne({ id_producto: parseInt(id_producto) }); // Buscamos usando id_producto
+        const product = await db.collection('productos').findOne({ id_producto: parseInt(id_producto) });
         if (!product) {
           return res.status(404).send('Producto no encontrado');
         }
+        // Puedes agregar la URL completa o la ruta relativa de la imagen
+        product.imagenUrl = `/uploads/${product.imagen}`;
         res.json(product);
       } catch (err) {
         console.error('Error al obtener el producto:', err);
         res.status(500).send('Error al obtener el producto');
       }
     },
+    
 
     // Crear un nuevo producto
     createProduct: async (req, res) => {
       const newProduct = req.body;
+      // Suponiendo que el nombre de la imagen se pasa en el cuerpo de la solicitud
+      const imageName = newProduct.imagen; // La imagen es un campo en el cuerpo del producto
       try {
         const result = await db.collection('productos').insertOne(newProduct);
-        res.status(201).json({ message: 'Producto creado exitosamente', productId: result.insertedId });
+        res.status(201).json({ 
+          message: 'Producto creado exitosamente', 
+          productId: result.insertedId 
+        });
       } catch (err) {
         console.error('Error al crear el producto:', err);
         res.status(500).send('Error al crear el producto');
       }
     },
+    
 
     // Actualizar un producto
     updateProduct: async (req, res) => {

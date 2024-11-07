@@ -4,6 +4,10 @@ const express = require('express');
 const { MongoClient } = require('mongodb'); // Importa el cliente de MongoDB
 const app = express();
 const port = process.env.PORT || 4000;
+const path = require('path');
+
+// Servir archivos estáticos desde la carpeta 'uploads'
+app.use('/uploads', express.static(path.join(__dirname, 'src/uploads')));
 
 // Rutas
 const clientsRoutes = require('./routes/clientes');
