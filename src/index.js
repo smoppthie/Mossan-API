@@ -10,6 +10,7 @@ const port = process.env.PORT || 4000;
 const clientsRoutes = require('./routes/clientes');
 const productsRoutes = require('./routes/products');
 const administradorRoutes = require('./routes/administrador');
+const contactoRoutes = require('./routes/contacto'); 
 
 // Configuración avanzada de CORS
 const corsOptions = {
@@ -44,9 +45,10 @@ const startServer = async () => {
     db = client.db(dbName);
 
     // Pasar la conexión de la base de datos a las rutas
-    app.use('/api', clientsRoutes(db));
-    app.use('/api', productsRoutes(db));
-    app.use('/api', administradorRoutes(db));
+    app.use('/api', clientsRoutes(db)); // Rutas de clientes
+    app.use('/api', productsRoutes(db)); // Rutas de productos
+    app.use('/api', administradorRoutes(db)); // Rutas de administrador
+    app.use('/api', contactoRoutes(db)); // Rutas de contacto (singular)
 
     // Ruta de bienvenida en el servidor
     app.get('/', (req, res) => {

@@ -1,5 +1,5 @@
 const { ObjectId } = require('mongodb'); 
-
+//a
 module.exports = (db) => {
   return {
     // Obtener todos los administradores
