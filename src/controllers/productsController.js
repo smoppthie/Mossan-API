@@ -36,7 +36,7 @@ module.exports = (db) => {
           }
 
           // Verificar que haya suficiente stock
-          if (product.stock < quantity) {
+          if (product.cantidad < quantity) {
             throw new Error(`No hay suficiente stock para el producto con ID ${id_producto}`);
           }
 
@@ -44,7 +44,7 @@ module.exports = (db) => {
           await db('productos')
             .where('id_producto', id_producto)
             .update({
-              stock: product.stock - quantity, // Restamos la cantidad comprada
+              cantidad: product.cantidad= - quantity, // Restamos la cantidad comprada
             });
         }
 
@@ -76,7 +76,7 @@ module.exports = (db) => {
           }
 
           // Verificamos que haya suficiente stock
-          if (product.stock < quantity) {
+          if (product.cantidad < quantity) {
             throw new Error(`No hay suficiente stock para el producto con ID ${id_producto}`);
           }
 
@@ -84,7 +84,7 @@ module.exports = (db) => {
           await db('productos')
             .where('id_producto', id_producto)
             .update({
-              stock: product.stock - quantity, // Restamos la cantidad comprada
+              cantidad: product.cantidad - quantity, // Restamos la cantidad comprada
             });
         }
 

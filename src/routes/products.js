@@ -15,7 +15,7 @@ module.exports = (db) => {
   router.post('/productos', productsController(db).createProduct);
 
   //Actualiza cantidad de productos al comprar.
-  router.put('/productos/update-quantity', productsController(db).updateQuantity);
+  router.put('/productos/update-quantit', productsController(db).updateQuantity);
 
   // Actualizar un producto
   router.put('/productos/:id_producto', productsController(db).updateProduct);
