@@ -1,28 +1,19 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient } = require('mongodb'); // Importar MongoClient
 
-// URL de conexión y configuración de la base de datos
-const url = 'mongodb://localhost:27017'; // Dirección del servidor de MongoDB
-const dbName = 'mossan_nosql'; // Nombre de la base de datos que quieres usar
+// Configuración de la URL de conexión y el nombre de la base de datos
+const url = 'mongodb://localhost:27017';
+const dbName = 'mossan_nosql';
 
-// Crear un nuevo cliente MongoClient (sin useNewUrlParser y useUnifiedTopology)
-const client = new MongoClient(url); // No se necesitan las opciones
+let dbInstance; // Usamos esta variable para reutilizar la conexión
 
 async function connectToDatabase() {
-  try {
-    // Conectarse al servidor de MongoDB
-    await client.connect();
+  if (!dbInstance) {
+    const client = new MongoClient(url); // Crear cliente de MongoDB
+    await client.connect(); // Conectar a MongoDB
     console.log('Conexión exitosa a la base de datos MongoDB');
-
-    // Selecciona la base de datos (si no existe, se crea automáticamente cuando se usa)
-    const db = client.db(dbName);
-    
-    // Retorna la base de datos para su uso en otras partes del código
-    return db;
-  } catch (err) {
-    console.error('Error conectando a la base de datos:', err);
-    throw err; // Lanza el error para que pueda manejarse en otros lugares
+    dbInstance = client.db(dbName); // Guardar la instancia de la base de datos para reutilizarla
   }
+  return dbInstance; // Retornar la base de datos
 }
 
-// Exporta la función de conexión
-module.exports = { connectToDatabase };
+module.exports = connectToDatabase; // ✅ Exportar la función
