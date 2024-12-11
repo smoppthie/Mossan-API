@@ -4,8 +4,8 @@ const { MongoClient } = require('mongodb');
 const url = 'mongodb://localhost:27017'; // Dirección del servidor de MongoDB
 const dbName = 'mossan_nosql'; // Nombre de la base de datos que quieres usar
 
-// Crear un nuevo cliente MongoClient
-const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+// Crear un nuevo cliente MongoClient (sin useNewUrlParser y useUnifiedTopology)
+const client = new MongoClient(url); // No se necesitan las opciones
 
 async function connectToDatabase() {
   try {
@@ -20,8 +20,9 @@ async function connectToDatabase() {
     return db;
   } catch (err) {
     console.error('Error conectando a la base de datos:', err);
+    throw err; // Lanza el error para que pueda manejarse en otros lugares
   }
 }
 
 // Exporta la función de conexión
-module.exports = connectToDatabase;
+module.exports = { connectToDatabase };

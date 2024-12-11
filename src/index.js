@@ -2,15 +2,16 @@
 const cors = require('cors');
 const express = require('express');
 const path = require('path');
-const { MongoClient } = require('mongodb'); // Importa el cliente de MongoDB
+const mysqlPool = require('./config/bdSQL'); // Conexión a MySQL con mysql2
+const { connectToDatabase } = require('./config/bd'); // Conexión a MongoDB
 const app = express();
 const port = process.env.PORT || 4000;
 
 // Rutas
-const clientsRoutes = require('./routes/clientes');
-const productsRoutes = require('./routes/products');
-const administradorRoutes = require('./routes/administrador');
-const contactoRoutes = require('./routes/contacto'); 
+const clientsRoutes = require('./routes/clientes'); // Rutas para MongoDB
+const productsRoutes = require('./routes/products'); // Rutas para MongoDB
+const administradorRoutes = require('./routes/administrador'); // Rutas para MongoDB
+const contactoRoutes = require('./routes/contacto'); // Rutas para MySQL
 
 // Configuración avanzada de CORS
 const corsOptions = {
@@ -31,24 +32,22 @@ app.get('/uploads/test', (req, res) => {
   res.send('Ruta de archivos estáticos funciona');
 });
 
-// Conexión a MongoDB
-const url = process.env.MONGODB_URL || 'mongodb://localhost:27017'; // Cambia a tu URL de MongoDB si es necesario
-const dbName = process.env.DB_NAME || 'mossan_nosql'; // Nombre de la base de datos
-
-let db;
-
 // Función para iniciar el servidor
 const startServer = async () => {
   try {
-    const client = await MongoClient.connect(url); // sin useNewUrlParser y useUnifiedTopology
-    console.log('Conexión exitosa a MongoDB');
-    db = client.db(dbName);
+    // Conectar a MongoDB usando bd.js
+    const mongoDb = await connectToDatabase();
 
-    // Pasar la conexión de la base de datos a las rutas
-    app.use('/api', clientsRoutes(db)); // Rutas de clientes
-    app.use('/api', productsRoutes(db)); // Rutas de productos
-    app.use('/api', administradorRoutes(db)); // Rutas de administrador
-    app.use('/api', contactoRoutes(db)); // Rutas de contacto (singular)
+    // Probar la conexión a MySQL
+    const connection = await mysqlPool.getConnection();
+    console.log('Conexión exitosa a MySQL');
+    connection.release(); // Liberar la conexión para que esté disponible para otras consultas
+
+    // Pasar las conexiones de base de datos a las rutas
+    app.use('/api', clientsRoutes(mongoDb)); // Rutas de clientes (MongoDB)
+    app.use('/api', productsRoutes(mongoDb)); // Rutas de productos (MongoDB)
+    app.use('/api', administradorRoutes(mongoDb)); // Rutas de administrador (MongoDB)
+    app.use('/api', contactoRoutes); // Rutas de contacto (MySQL con mysql2)
 
     // Ruta de bienvenida en el servidor
     app.get('/', (req, res) => {
@@ -68,7 +67,7 @@ const startServer = async () => {
       }
     });
   } catch (err) {
-    console.error('Error conectando a MongoDB:', err);
+    console.error('Error al iniciar el servidor:', err);
   }
 };
 
