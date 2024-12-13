@@ -6,6 +6,10 @@ const mysqlPool = require('./config/bdSQL'); // Conexión a MySQL con mysql2
 const connectToDatabase = require('./config/bd'); // Conexión a MongoDB
 const app = express();
 const port = process.env.PORT || 4000;
+const cloudinaryRoutes = require('./routes/cloudinary'); // Ruta correcta al archivo de rutas
+app.use('/api/cloudinary', cloudinaryRoutes); // Prefijo para las rutas de Cloudinary
+
+
 
 // Rutas (Importar las rutas como router u objeto función)
 const clientsRoutes = require('./routes/clientes'); 
@@ -13,12 +17,15 @@ const productsRoutes = require('./routes/products');
 const administradorRoutes = require('./routes/administrador'); 
 const contactoRoutes = require('./routes/contacto'); 
 
+
 // Configuración avanzada de CORS
 const corsOptions = {
   origin: 'http://localhost:3000',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
+ 
+
 
 // Aplicar CORS con opciones configuradas
 app.use(cors(corsOptions));
