@@ -1,22 +1,22 @@
 // Importaciones
-const cors = require('cors');
+require('dotenv').config(); // Carga las variables de entorno desde .env
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
 const mysqlPool = require('./config/bdSQL'); // Conexión a MySQL con mysql2
 const connectToDatabase = require('./config/bd'); // Conexión a MongoDB
+const cloudinaryRoutes = require('./routes/cloudinary'); // Ruta correcta al archivo de rutas de Cloudinary
+const webpayRoutes = require('./routes/webpayRoutes'); // Rutas de Webpay
+
+// Inicialización del servidor
 const app = express();
 const port = process.env.PORT || 4000;
-const cloudinaryRoutes = require('./routes/cloudinary'); // Ruta correcta al archivo de rutas
-app.use('/api/cloudinary', cloudinaryRoutes); // Prefijo para las rutas de Cloudinary
-
-
 
 // Rutas (Importar las rutas como router u objeto función)
-const clientsRoutes = require('./routes/clientes'); 
-const productsRoutes = require('./routes/products'); 
-const administradorRoutes = require('./routes/administrador'); 
-const contactoRoutes = require('./routes/contacto'); 
-
+const clientsRoutes = require('./routes/clientes');
+const productsRoutes = require('./routes/products');
+const administradorRoutes = require('./routes/administrador');
+const contactoRoutes = require('./routes/contacto');
 
 // Configuración avanzada de CORS
 const corsOptions = {
@@ -24,8 +24,6 @@ const corsOptions = {
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
- 
-
 
 // Aplicar CORS con opciones configuradas
 app.use(cors(corsOptions));
@@ -48,13 +46,15 @@ const startServer = async () => {
     // Probar la conexión a MySQL
     const connection = await mysqlPool.getConnection();
     console.log('Conexión exitosa a MySQL');
-    connection.release(); 
+    connection.release();
 
-    // Pasar las conexiones de base de datos a las rutas
-    app.use('/api', clientsRoutes(mongoDb)); 
-    app.use('/api', productsRoutes); // ✅ Sin paréntesis 
-    app.use('/api', administradorRoutes(mongoDb)); 
-    app.use('/api', contactoRoutes); 
+    // Rutas de la aplicación
+    app.use('/api', clientsRoutes(mongoDb)); // Rutas de clientes (MongoDB)
+    app.use('/api', productsRoutes); // Rutas de productos
+    app.use('/api', administradorRoutes(mongoDb)); // Rutas de administrador (MongoDB)
+    app.use('/api', contactoRoutes); // Rutas de contacto (MySQL con Sequelize)
+    app.use('/api/cloudinary', cloudinaryRoutes); // Rutas para Cloudinary
+    app.use('/api/webpay', webpayRoutes); // Rutas de Webpay
 
     // Ruta de bienvenida en el servidor
     app.get('/', (req, res) => {

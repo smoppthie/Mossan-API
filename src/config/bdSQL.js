@@ -4,7 +4,7 @@ const mysql = require('mysql2/promise'); // Usar la versión "promise" para awai
 const pool = mysql.createPool({
   host: 'localhost', 
   user: 'root',
-  password: 'mioyluna',
+  password: '1234567890',
   database: 'mossan',
   waitForConnections: true,
   connectionLimit: 10, // Máximo de conexiones simultáneas
